@@ -1,0 +1,25 @@
+{
+    "name": "nwidart/videogallery",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\VideoGallery\\Providers\\VideoGalleryServiceProvider"
+            ],
+            "aliases": {
+                
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\VideoGallery\\": ""
+        }
+    }
+}
