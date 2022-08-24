@@ -120,5 +120,6 @@ Route::group(
 		Route::get('login/{provider}/callback', 'SocialController@Callback');
 
 		Route::get('load-img-album/{album_id}', 'HomeController@load_img_album');
+		Route::get('/{id}', 'ArticleController@redirectPost')->where('id', '[0-9]+');
 	}
 );

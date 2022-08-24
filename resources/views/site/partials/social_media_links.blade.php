@@ -1,4 +1,4 @@
-<ul class="d-flex social-box px-4 mb-1" style="direction: ltr;list-style-type: none;">
+<ul class="d-flex social-box mb-1" style="direction: ltr;list-style-type: none;">
     {{-- <li>
         <a class="facebook social-btn" href="" target="_blank"><i class="icon-facebook"></i></a>
     </li> --}}

@@ -1,5 +1,4 @@
 @extends('site.layouts.app')
-
 @section('style')
     <link rel="stylesheet" href="{{ static_asset('site/css/plyr.css') }}" />
     <link rel="stylesheet" href="{{ static_asset('reaction/reaction.css') }}" />
@@ -8,26 +7,13 @@
 @section('content')
     <div class="sg-page-content">
         <div class="container inner-detail-page" style="max-width: 90%">
-            <div class="entry-header mb-4">
-                <div class="entry-thumbnail">
-                    @if ($post->layout == 'style_3')
-                        @include('site.pages.article.partials.detail_image')
-                    @endif
-                </div>
-            </div>
             <div class="row margin-top-70">
                 <div class="col-md-6 col-lg-6 sg-sticky">
                     <div class="theiaStickySidebar post-details">
                         <div class="sg-section">
                             <div class="section-content">
                                 <div class="sg-post">
-                                    @if ($post->layout == 'default')
-                                        @include('site.pages.article.style_1')
-                                    @elseif($post->layout == 'style_2')
-                                        @include('site.pages.article.style_2')
-                                    @elseif($post->layout == 'style_3')
-                                        @include('site.pages.article.style_3')
-                                    @endif
+                                    @include('site.pages.article.style_2')
                                 </div>
                                 @if ($post->tags != null)
                                     <div class="sg-section mb-4">
@@ -132,11 +118,11 @@
                                                                 @case('video')
                                                                     <i class="fa fa-file-video-o" style="color: var(--primary-color)"></i>
                                                                 @break
-                                
+
                                                                 @case('audio')
                                                                     <i class="fa fa-file-audio-o" style="color: var(--primary-color)"></i>
                                                                 @break
-                                
+
                                                                 @default
                                                                     <i class="fa fa-file-text-o" style="color: var(--primary-color)"></i>
                                                             @endswitch
@@ -381,6 +367,20 @@
                 }
             });
             $(this).show();
+        });
+
+        $(".short-link").click(function() {
+            let link = $(this).data('link');
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val(link).select();
+            document.execCommand("copy");
+            $temp.remove();
+            $(".link-msg").show();
+            setTimeout(
+                function() {
+                    $(".link-msg").hide();
+                }, 4000);
         });
     </script>
 @endsection

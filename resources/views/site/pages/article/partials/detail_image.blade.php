@@ -14,7 +14,7 @@
 
             @foreach ($video_version as $version)
                 @if ($post->video->$version != null)
-                    <source src="{{ basePath($post->video) }}/{{ $post->video->$version }}" size="{{ str_replace(['v_1080p', 'v_720p', 'v_480p', 'v_360p', 'v_240p', 'v_144p'],['1080', '720', '576', '480', '360', '240'],$version) }}" type="video/{{ $post->video->video_type }}" />
+                    <source src="{{ basePath($post->video) }}/{{ $post->video->$version }}" size="{{ str_replace(['v_1080p', 'v_720p', 'v_480p', 'v_360p', 'v_240p', 'v_144p'], ['1080', '720', '576', '480', '360', '240'], $version) }}" type="video/{{ $post->video->video_type }}" />
                 @endif
             @endforeach
         @endif
@@ -31,11 +31,10 @@
         @endif
     @endif
 @else
-
-@if (isFileExist(@$post->image, $result = @$post->image->big_image_two))
-<img class="img-fluid img-print" src="{{ safari_check() ? basePath(@$post->image) . '/' . $result : static_asset('default-image/default-730x400.png') }} " data-original="{{ basePath(@$post->image) }}/{{ $result }}" alt="{!! $post->title !!}">
-@elseif(str_contains($post->content, '<img'))
-@else
-<img class="img-fluid img-print" src="{{ static_asset('default-image/default-730x400.png') }} " alt="{!! $post->title !!}">
-@endif
+    @if (isFileExist(@$post->image, $result = @$post->image->big_image_two))
+        <img class="img-fluid img-print" src="{{ safari_check() ? basePath(@$post->image) . '/' . $result : static_asset('default-image/default-730x400.png') }} " data-original="{{ basePath(@$post->image) }}/{{ $result }}" alt="{!! $post->title !!}">
+    @elseif(str_contains($post->content, '<img'))
+    @else
+        <img class="img-fluid img-print" src="{{ static_asset('default-image/default-730x400.png') }} " alt="{!! $post->title !!}">
+    @endif
 @endif

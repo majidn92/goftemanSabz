@@ -85,44 +85,44 @@
     <!-- Tinemce -->
     <script src="{{ static_asset('vendor/tinymce/tinymce.min.js') }}"></script>
     <script>
-        primary_color =
-            //TinyMCE
-            tinymce.init({
-                selector: "textarea#post_content",
-                theme: "modern",
-                height: 400,
-                plugins: [
-                    'advlist autolink lists link image charmap print preview hr anchor pagebreak',
-                    'searchreplace wordcount visualblocks visualchars code fullscreen',
-                    'insertdatetime media nonbreaking save table contextmenu directionality',
-                    'emoticons template paste textcolor colorpicker textpattern imagetools lineheight',
-                ],
-                toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link',
-                toolbar2: 'print preview media | forecolor backcolor emoticons | paste | lineheightselect | image | editimage',
-                image_advtab: true,
-                content_css: "{{ static_asset('css/editor.css') }}",
-                statusbar: false,
-                paste_data_images: true,
-                image_title: true,
-                automatic_uploads: true,
-                file_picker_types: 'image',
-                convert_urls: false,
-                // content_style: "body { line-height: 30px !important; }",
-                // lineheight_formats: "1px 5px",
-                lineheight_formats: "0.25pt 0.5pt 0.75pt 1pt 1.5pt 2pt 4pt 6pt 8pt 10pt 12pt 14pt 16pt 18pt 20pt 22pt 24pt 26pt 36pt",
+        endOfMessage = 1;
+        //TinyMCE
+        tinymce.init({
+            selector: "textarea#post_content",
+            theme: "modern",
+            height: 400,
+            plugins: [
+                'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                'searchreplace wordcount visualblocks visualchars code fullscreen',
+                'insertdatetime media nonbreaking save table contextmenu directionality',
+                'emoticons template paste textcolor colorpicker textpattern imagetools lineheight',
+            ],
+            toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link',
+            toolbar2: 'print preview media | forecolor backcolor emoticons | paste | lineheightselect | image | editimage',
+            image_advtab: true,
+            content_css: "{{ static_asset('css/editor.css') }}",
+            statusbar: false,
+            paste_data_images: true,
+            image_title: true,
+            automatic_uploads: true,
+            file_picker_types: 'image',
+            convert_urls: false,
+            lineheight_formats: "0.25pt 0.5pt 0.75pt 1pt 1.5pt 2pt 4pt 6pt 8pt 10pt 12pt 14pt 16pt 18pt 20pt 22pt 24pt 26pt 36pt",
 
-                setup: function(ed) {
-                    ed.on('blur', function() {
-                        let content = tinyMCE.activeEditor.getContent();
-                        content = content.replace(/\اخبار ساخته ها/g, '<a href="https://sakhteha.news" class="main-link">اخبار ساخته ها</a>');
-                        console.log(content);
+            setup: function(ed) {
+                ed.on('blur', function() {
+                    let content = tinyMCE.activeEditor.getContent();
+                    content = content.replace(/\اخبار ساخته ها/g, '<a href="https://sakhteha.news" class="main-link">اخبار ساخته ها</a>');
+                    if (endOfMessage == 1) {
                         content = content + '<p>انتهای پیام/</p>';
-                        tinyMCE.activeEditor.setContent(content);
-                    });
-                }
-            });
+                        endOfMessage = 0;
+                    }
+                    tinyMCE.activeEditor.setContent(content);
+                });
+            }
+        });
 
-            
+
 
         editor_image = false;
 
@@ -131,10 +131,6 @@
             editor_image = true;
             $('.image-modal-lg').modal('show');
         });
-
-
-        // tinymce.suffix = ".min";
-        // tinyMCE.baseURL = 'vendor/tinymce';
 
         tinymce.init({
             selector: "textarea#content",

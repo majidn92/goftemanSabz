@@ -51,12 +51,10 @@ class ArticleController extends Controller
 		} else {
 			return view('site.pages.404');
 		}
-		$post               = Post::with(['image', 'quizQuestions', 'quizQuestions.quizAnswers', 'quizResults', 'comments' => function ($query) {
+		$post = Post::with(['image', 'quizQuestions', 'quizQuestions.quizAnswers', 'quizResults', 'comments' => function ($query) {
 			return $query->whereNull('comment_id');
 		}, 'comments.reply.user', 'comments.user'])
 			->where('slug', $id)->first();
-
-		// dd($post);
 
 		$widgetService      = new WidgetService();
 		$widgets            = $widgetService->getWidgetDetails();
@@ -67,7 +65,6 @@ class ArticleController extends Controller
 		if (!blank($post->contents)) :
 			foreach ($post->contents as $key => $content) {
 				$content_type = array_keys($content);
-				//$post_contents[] = $type[0];
 				foreach ($content as $value) {
 
 					$abc = [];
@@ -473,7 +470,6 @@ class ArticleController extends Controller
 		}
 	}
 
-
 	public function postByCategory($slug)
 	{
 		try {
@@ -647,7 +643,6 @@ class ArticleController extends Controller
 		}
 
 		$allPosts = [];
-		// dd($posts);
 
 		foreach ($posts as $post) {
 			$appendRow = '';
@@ -1212,5 +1207,12 @@ class ArticleController extends Controller
 			$allPosts[] = $appendRow;
 		}
 		return response()->json([$allPosts, $hideReadMore]);
+	}
+
+	public function redirectPost($id)
+	{
+		$slug = Post::find($id)->slug;
+		$article = settingHelper('article_detail_prefix') ?? 'article';
+		return redirect(url($article . "/" . $slug), 301);
 	}
 }

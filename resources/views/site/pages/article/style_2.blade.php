@@ -11,7 +11,7 @@
                 {{ $post->user->last_name }}
             </a>
             <span style="margin-right: auto;margin-left: 5px;padding-top: 16px">کد خبر : {{ $post->id }}</span>
-            <span style="padding-top: 16px"> 
+            <span style="padding-top: 16px">
                 <i class="fa fa-calendar-minus-o" aria-hidden="true"></i>
                 {{ miladi_to_jalali($post->updated_at) }}
                 {{-- بابت حذف لینک دسته بندی خبر برحسب تاریخ --}}
@@ -25,7 +25,17 @@
             </div>
         @endif
     </div>
-    @include('site.partials.social_media_links', ['post' => $post])
+
+    <div class="px-4 py-1 d-flex">
+        <span class="d-flex short-link" style="width: 40%;padding-top: 9px;color: #7c7c7c;cursor: pointer;font-size: 13px" data-link="{{ url("$post->id") }}">
+            {{ url("$post->id") }}
+            <i class="fa fa-link mr-1"></i>
+            <span class="link-msg" style="background: green;color: white;padding: 3px;margin-right: 5px;height: 25px;display: none">کپی شد</span>
+        </span>
+        <span style="width: 60%">
+            @include('site.partials.social_media_links', ['post' => $post])
+        </span>
+    </div>
 
     <div class="entry-thumbnail" height="100%" style="margin: 1.5rem;margin-top: 0;margin-bottom: 0">
         @include('site.pages.article.partials.detail_image')

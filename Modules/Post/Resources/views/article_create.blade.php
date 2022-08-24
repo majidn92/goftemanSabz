@@ -217,14 +217,13 @@
                         <b>منبع خبر</b>
                         <span>(اختیاری)</span>
                     </label>
-                    <select name="source_id" class="form-control">
+                    <select name="source_name" class="form-control">
+                        <option value="0">--انتخاب نمائید--</option>
                         @foreach ($sources as $source)
-                            <option value="{{ $source->id }}" @if (old('source_id'))  @if (old('source_id') == $source->id) selected @endif 
-                        @endif
-                        @endif
-                        >
-                        {{ $source->name }}
-                        </option>
+                            <option value="{{ $source->name }}" @if (old('source_name')) @if (old('source_name') == $source->name) selected @endif @endif
+                                >
+                                {{ $source->name }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
@@ -844,6 +843,19 @@
         $("#meta_title").bind("keypress", function(e) {
             if (e.keyCode == 13) {
                 e.preventDefault();
+            }
+        });
+
+        $("select[name='source_name']").change(function() {
+            let content = tinyMCE.activeEditor.getContent();
+            let name = $(this).val();
+            if (name != 0) {
+                content = content + '<p class="endOfMessage">منبع خبر: ' + name + '</p>';
+                tinyMCE.activeEditor.setContent(content);
+            } else {
+                $.each(tinyMCE.activeEditor.$('.endOfMessage'),function(){
+                    $(this).remove();
+                });
             }
         });
     </script>

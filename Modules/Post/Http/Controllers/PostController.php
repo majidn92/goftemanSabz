@@ -69,7 +69,7 @@ class PostController extends Controller
         $countVideo     = Video::count();
         $states = State::all();
         $sections = Section::offset(3)->limit(9999)->get();
-        $sources = DB::get();
+        $sources = DB::table('sources')->get();
 
         return view('post::article_create', compact('categories', 'subCategories', 'activeLang', 'countImage', 'countVideo', 'states', 'sections','sources'));
     }
